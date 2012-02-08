@@ -1,0 +1,78 @@
+<?php
+// $Id$
+/**
+ * @file
+ * A module that allows management of multiple Arts and Sciences web resources.
+ */
+
+/**
+ *
+ * Implementation of hook_help().
+ *
+ * Module help page
+ */
+function asc_sitemanager_help($path, $arg) {
+
+  // Declare output variable
+  $output = '';
+
+  // provide help for the module
+  switch ($path) {
+    case 'admin/help#asc_sitemanager':
+      $output = t('A module that allows management of multiple Arts and Sciences web resources.<br /><br />');
+      break;
+  }
+
+  // Return the output
+  return $output;
+} // function asc_sitemanager_help($path, $arg)
+
+/**
+ *
+ * Implementation of hook_perm().
+ *
+ * Module permissions
+ */
+function asc_sitemanager_perm() {
+  return array(
+    'ASC Site Administrator',
+    'ASC Trainer',
+    'Administer ASC Site Manager Module',
+  );
+} // function asc_sitemanager_perm()
+
+/**
+ *
+ * Implementation of hook_menu().
+ *
+ * Menu items for module
+ */
+function asc_sitemanager_menu() {
+
+  // Declare the menu items variable
+  $items = array();
+
+  // Define the admin settings menu item
+  $items['admin/settings/sitemanager'] = array(
+    'title' => 'ASC Site Manager Administration',
+    'description' => 'Modify the settings for the ASC Site Manager.',
+    'page callback' => 'asc_sitemanager_admin',
+    'file' => '/include/asc_sitemanager_main.inc',
+    'access arguments' => array('Administer ASC Site Manager Module'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  // Define the page callback for the main site management page
+  $items['sitemanager'] = array(
+    'title' => 'Arts and Sciences Site Management',
+    'description' => 'Manage Arts and Sciences Sites.',
+    'page callback' => 'asc_sitemanager_main',
+    'page arguments' => array(1, 2),
+    'file' => '/include/asc_sitemanager_main.inc',
+    'access arguments' => array('ASC Site Administrator, ASC Trainer'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Return the menu items
+  return $items;
+} // function asc_sitemanager_menu()

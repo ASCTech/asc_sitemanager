@@ -1,0 +1,5 @@
+; $Id$
+name = ASC Site Manager
+description = A module that allows management of multiple Arts and Sciences web resources.
+core = 6.x
+package = Arts and Sciences at The Ohio State University Modules
